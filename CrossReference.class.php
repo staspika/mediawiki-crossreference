@@ -35,7 +35,7 @@ class CrossReferenceSubComponentParser
 		$txt = "<".$this->parenttag." id=\"".addslashes($subid)."\">";
 		$txt .= $matches[1];
 		$txt .= "</".$this->parenttag.">";
-		$out = $this->parser->recursiveTagParse($txt);
+		$out = $this->parser->recursiveTagParse($txt, $frame);
 		$this->num ++;
 		$n = count($this->buffer);
 		return $out;
@@ -290,7 +290,7 @@ class ExtCrossReference
 	 * noblock		do not output HTML blocks.
 	 * noautocaption        do not change the caption text in output.
          */
-        public function expandXrLabel( $text='', $argv='', $parser=null )
+        public function expandXrLabel( $text='', $argv='', Parser $parser, PPFrame $frame )
         {
         global $wgOut;
 
@@ -370,7 +370,7 @@ class ExtCrossReference
 
 			// Expand text
             // Normally, the following code would have been used:
-			// $innerHtml = $parser->recursiveTagParse(trim($text));
+			// $innerHtml = $parser->recursiveTagParse(trim($text), $frame);
             // ... However, as per MediaWiki 1.28, it doesn't work as
             // expected (see https://www.mediawiki.org/wiki/QINU_fix)
             // because a bug in MediaWiki's parser. The following
@@ -413,7 +413,7 @@ class ExtCrossReference
 	 * id="id"		identifier of the reference
 	 * nolink		no hypertext link
          */
-        public function expandXr( $text='', $argv='', $parser=null )
+        public function expandXr( $text='', $argv='', Parser $parser, PPFrame $frame )
         {
                 $out = '';
 
@@ -439,7 +439,7 @@ class ExtCrossReference
 			else {
 				$txt = str_replace("%i", $marker, $text);
 			}
-			$out = $parser->recursiveTagParse($txt);
+			$out = $parser->recursiveTagParse($txt, $frame);
 		}
 		else {
 			$out = $this->errorMsg('crossreference_noid',
@@ -452,51 +452,51 @@ class ExtCrossReference
 
 	/** Expand <figure></figure>
          */
-        public function expandFigure( $input='', $argv='', $parser=null )
+        public function expandFigure( $input='', $argv='', Parser $parser, PPFrame $frame )
         {
 		$argv['group'] = 'fig';
 		$argv['subcomponent'] = 'subfigure';
-                $out = $this->expandXrLabel($input, $argv, $parser);
+                $out = $this->expandXrLabel($input, $argv, $parser, $frame);
                 return $out;
         }
 
 	/** Expand <equation></aquation>
          */
-        public function expandEquation( $input='', $argv='', $parser=null )
+        public function expandEquation( $input='', $argv='', Parser $parser, PPFrame $frame )
         {
                 $argv['group'] = 'eqn';
 		$argv['subcomponent'] = 'subequation';
-                $out = $this->expandXrLabel($input, $argv, $parser);
+                $out = $this->expandXrLabel($input, $argv, $parser, $frame);
                 return $out;
         }
 
 	/** Expand <definition></definition>
          */
-        public function expandDefinition( $input='', $argv='', $parser=null )
+        public function expandDefinition( $input='', $argv='', Parser $parser, PPFrame $frame )
         {
                 $argv['group'] = 'def';
 		$argv['subcomponent'] = 'subdefinition';
-                $out = $this->expandXrLabel($input, $argv, $parser);
+                $out = $this->expandXrLabel($input, $argv, $parser, $frame);
                 return $out;
         }
 
 	/** Expand <figtable></figtable>
          */
-        public function expandFigTable( $input='', $argv='', $parser=null )
+        public function expandFigTable( $input='', $argv='', Parser $parser, PPFrame $frame )
         {
                 $argv['group'] = 'tab';
 		$argv['subcomponent'] = 'subfigtable';
-                $out = $this->expandXrLabel($input, $argv, $parser);
+                $out = $this->expandXrLabel($input, $argv, $parser, $frame);
                 return $out;
         }
 
 	/** Expand <theorem></theorem>
          */
-        public function expandTheorem( $input='', $argv='', $parser=null )
+        public function expandTheorem( $input='', $argv='', Parser $parser, PPFrame $frame )
         {
                 $argv['group'] = 'the';
 		$argv['subcomponent'] = 'subtheorem';
-                $out = $this->expandXrLabel($input, $argv, $parser);
+                $out = $this->expandXrLabel($input, $argv, $parser, $frame);
                 return $out;
         }
 
