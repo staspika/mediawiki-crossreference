@@ -290,7 +290,7 @@ class ExtCrossReference
 	 * noblock		do not output HTML blocks.
 	 * noautocaption        do not change the caption text in output.
          */
-        public function expandXrLabel( $text='', $argv='', $parser=null )
+        public function expandXrLabel( $text='', $argv='', Parser $parser, PPFrame $frame )
         {
         global $wgOut;
 
@@ -413,7 +413,7 @@ class ExtCrossReference
 	 * id="id"		identifier of the reference
 	 * nolink		no hypertext link
          */
-        public function expandXr( $text='', $argv='', $parser=null )
+        public function expandXr( $text='', $argv='', Parser $parser, PPFrame $frame )
         {
                 $out = '';
 
@@ -452,51 +452,51 @@ class ExtCrossReference
 
 	/** Expand <figure></figure>
          */
-        public function expandFigure( $input='', $argv='', $parser=null )
+        public function expandFigure( $input='', $argv='', Parser $parser, PPFrame $frame )
         {
 		$argv['group'] = 'fig';
 		$argv['subcomponent'] = 'subfigure';
-                $out = $this->expandXrLabel($input, $argv, $parser);
+                $out = $this->expandXrLabel($input, $argv, $parser, $frame);
                 return $out;
         }
 
 	/** Expand <equation></aquation>
          */
-        public function expandEquation( $input='', $argv='', $parser=null )
+        public function expandEquation( $input='', $argv='', Parser $parser, PPFrame $frame )
         {
                 $argv['group'] = 'eqn';
 		$argv['subcomponent'] = 'subequation';
-                $out = $this->expandXrLabel($input, $argv, $parser);
+                $out = $this->expandXrLabel($input, $argv, $parser, $frame);
                 return $out;
         }
 
 	/** Expand <definition></definition>
          */
-        public function expandDefinition( $input='', $argv='', $parser=null )
+        public function expandDefinition( $input='', $argv='', Parser $parser, PPFrame $frame )
         {
                 $argv['group'] = 'def';
 		$argv['subcomponent'] = 'subdefinition';
-                $out = $this->expandXrLabel($input, $argv, $parser);
+                $out = $this->expandXrLabel($input, $argv, $parser, $frame);
                 return $out;
         }
 
 	/** Expand <figtable></figtable>
          */
-        public function expandFigTable( $input='', $argv='', $parser=null )
+        public function expandFigTable( $input='', $argv='', Parser $parser, PPFrame $frame )
         {
                 $argv['group'] = 'tab';
 		$argv['subcomponent'] = 'subfigtable';
-                $out = $this->expandXrLabel($input, $argv, $parser);
+                $out = $this->expandXrLabel($input, $argv, $parser, $frame);
                 return $out;
         }
 
 	/** Expand <theorem></theorem>
          */
-        public function expandTheorem( $input='', $argv='', $parser=null )
+        public function expandTheorem( $input='', $argv='', Parser $parser, PPFrame $frame )
         {
                 $argv['group'] = 'the';
 		$argv['subcomponent'] = 'subtheorem';
-                $out = $this->expandXrLabel($input, $argv, $parser);
+                $out = $this->expandXrLabel($input, $argv, $parser, $frame);
                 return $out;
         }
 
