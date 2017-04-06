@@ -116,19 +116,14 @@ class ExtCrossReference
     private function errorMsg($messageId, $solutionId, $method='')
     {
         $solution = '';
-        if ($solutionId) {
-            $solution = wfMessage($solutionId, $method)
-                ->inContentLanguage()
-                ->escaped()
-                ->parse();
+        if (!empty($solutionId)) {
+            $solution = wfMessage($solutionId, $method)->inContentLanguage();
             if ($solution==$solutionId) {
                 $solution = '';
             }
         }
         $msg = $this->error(
-            wfMessage($messageId)->inContentLanguage()->escaped()->parse(),
-            solution
-        );
+            wfMessage($messageId)->inContentLanguage(), solution);
         return $msg;
     }
 
@@ -256,9 +251,7 @@ class ExtCrossReference
             if ($plurial) {
                 $c .= '_s';
             }
-            $caption = wfMessage( $c, '%i', $caption )
-                ->inContentLanguage()
-                ->parse();
+            $caption = wfMessage( $c, '%i', $caption )->inContentLanguage();
             $caption = str_replace('%c', '', $caption);
             if ("<$c>"!=$caption) {
                 return $caption;
@@ -453,6 +446,7 @@ class ExtCrossReference
                 $txt = str_replace("%i", $marker, $text);
             }
             $out = $parser->recursiveTagParse($txt, $frame);
+
         } else {
             $out = $this->errorMsg(
                 'crossreference_noid',
