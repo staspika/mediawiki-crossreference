@@ -111,5 +111,3 @@ class CrossReference_HookStub
 		return call_user_func_array( array( $this->realObj, "$name" ), $args );
 	}
 }
-
-?>
