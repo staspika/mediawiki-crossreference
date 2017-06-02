@@ -380,14 +380,7 @@ class ExtCrossReference
             $this->lookup[$id]['caption'] = $defaultCaption;
             $this->lookup[$id]['group'] = $group;
             // Expand text
-            // Normally, the following code would have been used:
-            //~ $innerHtml = $parser->recursiveTagParse(trim($text), $frame);
-            // ... However, as per MediaWiki 1.28, it doesn't work as
-            // expected (see https://www.mediawiki.org/wiki/QINU_fix)
-            // because a bug in MediaWiki's parser. The following
-            // workaround have to be used instead (only the following
-            // line):
-            $innerHtml = $wgOut->parseInline(trim($text));
+            $innerHtml = $parser->recursiveTagParse(trim($text), $frame);
             $out = $innerHtml;
             // Build label
             if (isset($argv['showNumber']) || isset($argv['shownumber'])) {
@@ -400,9 +393,6 @@ class ExtCrossReference
                     "</div>"
                 ));
             }
-            // ... The following line is also a part of the workaround
-            // mentioned above:
-            $out = implode(array("<p>", $out,"</p>"));
             if (isset($submatcher)) {
                 $submatcher->clear();
                 $submatcher = null;
