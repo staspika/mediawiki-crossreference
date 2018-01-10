@@ -251,7 +251,7 @@ class ExtCrossReference
             if ($plurial) {
                 $c .= '_s';
             }
-            $caption = wfMessage( $c, '%i', $caption )->inContentLanguage();
+            $caption = wfMessage( $c, '%i', $caption )->inContentLanguage()->plain();
             $caption = str_replace('%c', '', $caption);
             if ("<$c>"!=$caption) {
                 return $caption;
