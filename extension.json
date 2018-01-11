@@ -1,0 +1,27 @@
+{
+	"manifest_version": 1,
+	"name": "CrossReference",
+	"namemsg": "crossreference_name",
+	"descriptionmsg": "crossreference_desc",
+	"type": "parserhook",
+	"version": "6-beta",
+	"url": "http://www.mediawiki.org/wiki/Extension:CrossReference",
+	"author": [
+		"[[:Wikipedia:Пика Пика|Stanislav Pika]]",
+		"[[:Wikipedia:User:sgalland-arakhne|Stéphane GALLAND]]",
+		"Tore Birkeland"
+	],
+	"AutoloadClasses": {
+		"ExtCrossReference": "CrossReference.class.php",
+		"CrossReferenceSetup": "CrossReference.php"
+	},
+	"ExtensionFunctions": [
+		"CrossReferenceSetup::wfSetupCrossReference"
+	],
+	"MessagesDirs": {
+		"CrossReference": [
+			"i18n"
+		]
+	},
+	"license-name": "GPL-2.0+"
+}
