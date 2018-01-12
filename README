@@ -5,8 +5,6 @@
 Licensed under GNU GPL. See COPYING for more license information.
 
 2. How to install
-   a. Download this tarball and extract the contents to $IP/extensions/CrossReference/
-      where $IP is your root wiki install
-   b. Add 'require_once( "$IP/extensions/CrossReference/CrossReference.php" );' to your
-      LocalSettings (without the single quotes)
+   a. Download and extract the files into $IP/extensions/CrossReference/ where $IP is your root wiki install
+   b. Add 'wfLoadExtension("CrossReference");' to your LocalSettings.php (without the single quotes)
    c. Enjoy

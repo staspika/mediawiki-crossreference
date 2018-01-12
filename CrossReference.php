@@ -10,30 +10,18 @@ if ( !defined( 'MEDIAWIKI' ) ) {
  * extension file.
  */
 
-/** REGISTRATION */
-$wgExtensionFunctions[] = 'wfSetupCrossReference';
-$wgExtensionCredits['parserhook'][] = array(
-	'path' => __FILE__,
-	'name' => 'CrossReference',
-	'version' => '5.1', 
-	'url' => 'http://www.mediawiki.org/wiki/Extension:CrossReference',
-	'author' => array('Tore Birkeland', '[[:Wikipedia:User:sgalland-arakhne|Stéphane GALLAND]]'),
-	'descriptionmsg' => 'crossreference_desc',
-);
+class CrossReferenceSetup {
+    public static function wfSetupCrossReference()
+    {
+        global $wgCrossReferenceHookStub, $wgHooks, $wgParser;
 
-$wgAutoloadClasses['ExtCrossReference'] = dirname(__FILE__).'/CrossReference.class.php';
-$wgExtensionMessagesFiles['CrossReference'] = dirname(__FILE__) . '/CrossReference.i18n.php';
+        $wgCrossReferenceHookStub = new CrossReference_HookStub;
 
-function wfSetupCrossReference()
-{
-	global $wgCrossReferenceHookStub, $wgHooks, $wgParser;
-
-	$wgCrossReferenceHookStub = new CrossReference_HookStub;
-
-	$wgHooks['LanguageGetMagic'][] = array( &$wgCrossReferenceHookStub, 'getMagicWords' );
-	$wgHooks['ParserFirstCallInit'][] = array( &$wgCrossReferenceHookStub, 'registerParser' );
-	$wgHooks['ParserClearState'][] = array( &$wgCrossReferenceHookStub, 'clearState' );
-	$wgHooks['ParserAfterTidy'][] = array( &$wgCrossReferenceHookStub, 'parserAfterTidy' );
+        $wgHooks['LanguageGetMagic'][] = array( &$wgCrossReferenceHookStub, 'getMagicWords' );
+        $wgHooks['ParserFirstCallInit'][] = array( &$wgCrossReferenceHookStub, 'registerParser' );
+        $wgHooks['ParserClearState'][] = array( &$wgCrossReferenceHookStub, 'clearState' );
+        $wgHooks['ParserAfterTidy'][] = array( &$wgCrossReferenceHookStub, 'parserAfterTidy' );
+    }
 }
 
 /**
