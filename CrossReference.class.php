@@ -32,9 +32,7 @@ class CrossReferenceSubComponentParser
     public function parse($matches)
     {
         $subid = $this->parentid."#".$this->num;
-        $txt = "<".$this->parenttag." id=\"".addslashes($subid)."\">";
-        $txt .= $matches[1];
-        $txt .= "</".$this->parenttag.">";
+        $txt = Html::element($this->parenttag, ['id'=>$subid], $matches[1]);
         $out = $this->parser->recursiveTagParse($txt, $frame);
         $this->num ++;
         $n = count($this->buffer);
@@ -106,10 +104,7 @@ class ExtCrossReference
     // Generates Error message
     private function error($message, $title='')
     {
-        if ($title) {
-            $title = " title=\"".addslashes($title)."\"";
-        }
-        return "<strong class=\"error\"$title>$message</strong>"; 
+        return Html::element('strong', ['class'=>'error', 'title'=>$title], $message);
     }
 
     // Generates Error message
@@ -139,16 +134,7 @@ class ExtCrossReference
         if (!$title) {
             $title = $url;
         }
-        $output = implode(array(
-            '<a href="', 
-            trim($url),
-            '" title="',
-            addslashes(strip_tags(trim($title))),
-            '" class="external text" ',
-            'rel="nofollow">',
-            trim($text),
-            '</a>'
-        ));
+        $output = Html::element('a', ['href'=>trim($url), 'title'=>strip_tags(trim($title)), 'class'=>'extermal text', 'rel'=>'nofollow'], trim($text));
         return $output;
     }
 
