@@ -189,7 +189,7 @@ class ExtCrossReference
 
     /** Invoked at the last stage of the p  arsing process.
       */
-    public function parserAfterTidy( &$parser, &$text )
+    public function parserAfterTidy( $parser, &$text )
     {
         $text = preg_replace("/&(amp;)?column;/s", ':', $text);
         // Put back captions
