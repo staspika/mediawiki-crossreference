@@ -89,6 +89,16 @@ class CrossReference_HookStub
 		return true;
 	}
 
+	/** Handle parserAfterTidy callback while allowing $txt to be passed by reference */
+	public function parserAfterTidy( $parser, &$txt )
+	{
+		if ( is_null( $this->realObj ) ) {
+			$this->realObj = new ExtCrossReference;
+			$this->realObj->clearState( $parser );
+		}
+		return $this->realObj->parserAfterTidy( $parser, $txt);
+	}
+
 	/** Pass through function call */
 	public function __call( $name, $args )
 	{
